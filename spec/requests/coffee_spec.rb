@@ -52,4 +52,18 @@ RSpec.describe "Coffees", type: :request do
     end
   end
 
+  describe "DELETE /coffee/:id" do
+    it "should respond with json when given a valid id" do
+      delete "/coffee/1"
+      expect(response).to have_http_status(200)
+      expect(response.content_type).to eq("application/json; charset=utf-8")
+    end
+  
+    it "should respond with 404 given an invalid id" do
+      delete "/coffee/99"
+      expect(response).to have_http_status(404)
+      expect(response.content_type).to eq("application/json; charset=utf-8")
+    end
+  end
+
 end

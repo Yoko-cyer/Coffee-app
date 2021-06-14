@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   get "/coffee/:id", to: "coffee#show"
   put "/coffee/:id", to: "coffee#update"
+  delete "/coffee/:id", to: "coffee#destroy"
 
   # get "/contact", to: "coffee#contact"
 end
