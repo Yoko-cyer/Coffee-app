@@ -28,4 +28,15 @@ RSpec.describe "Coffees", type: :request do
     end
   end
 
+  describe "POST /coffee" do
+
+    it "should return valid json and a status code of 200" do
+      post "/coffee", :params => {name: "Mocha", description: "Hot Chocolate with a shot of coffee", price: 5.5}
+      expect(response).to have_http_status(200)
+      expect(response.content_type). to eq("application/json; charset=utf-8")
+      expect(response.body).to include("Hot Chocolate")
+    end
+   
+  end
+
 end
