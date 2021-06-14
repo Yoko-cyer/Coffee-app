@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   post "/coffee", to: "coffee#create"
 
   get "/coffee/:id", to: "coffee#show"
-  
+  put "/coffee/:id", to: "coffee#update"
 
   # get "/contact", to: "coffee#contact"
 end

@@ -29,14 +29,27 @@ RSpec.describe "Coffees", type: :request do
   end
 
   describe "POST /coffee" do
-
     it "should return valid json and a status code of 200" do
       post "/coffee", :params => {name: "Mocha", description: "Hot Chocolate with a shot of coffee", price: 5.5}
       expect(response).to have_http_status(200)
-      expect(response.content_type). to eq("application/json; charset=utf-8")
+      expect(response.content_type).to eq("application/json; charset=utf-8")
       expect(response.body).to include("Hot Chocolate")
     end
-   
+  end
+
+  describe "PUT /coffee/:id" do
+    it "should respond with json given a valid id" do
+      put "/coffee/1", :params => {name: "Mocha", description: "Hot Chocolate with a shot of coffee", price: 5.5}
+      expect(response).to have_http_status(200)
+      expect(response.content_type).to eq("application/json; charset=utf-8")
+      expect(response.body).to include("Hot Chocolate")
+    end
+
+    it "should respond with 404 given an invalid id" do
+      put "/coffee/99", :params => {name: "Mocha", description: "Hot Chocolate with a shot of coffee", price: 5.5}
+      expect(response).to have_http_status(404)
+      expect(response.content_type).to eq("application/json; charset=utf-8")
+    end
   end
 
 end

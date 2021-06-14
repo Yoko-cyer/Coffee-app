@@ -2,6 +2,7 @@ class CoffeeController < ApplicationController
 
     skip_before_action :verify_authenticity_token
 
+    before_action :get_id, only: [:show, :update]
 
     # pretend model
     @@coffees = [
@@ -16,8 +17,8 @@ class CoffeeController < ApplicationController
     end
 
     def show
-        id = params[:id].to_i
-        @coffee = @@coffees.find{|coffee| coffee[:id] == id}
+        
+        @coffee = @@coffees.find{|coffee| coffee[:id] == @id}
         
         if @coffee
             render json: @coffee, status: 200
@@ -40,4 +41,38 @@ class CoffeeController < ApplicationController
         render json: created_coffee, status: 200
 
     end
+
+    def update
+
+        index = @@coffees.index{ |coffee| coffee[:id] == @id }
+        
+
+        if index 
+            ## Pull existing coffee
+            @coffee = @@coffees[index]
+
+            ## update coffee
+            updated_coffee = {
+                id: @coffee[:id],
+                name: params[:name],
+                description: params[:description],
+                price: params[:price]
+            }
+    
+            @@coffees[index] = updated_coffee
+            render json: updated_coffee, status: 200
+        else
+            ## 404
+            render json: { error: "Could not find coffee"}, status: 404
+        end
+
+    end
+
+
+    private 
+
+    def get_id
+        @id = params[:id].to_i
+    end
+
 end
