@@ -11,8 +11,8 @@ RSpec.describe "Coffees", type: :request do
       expect(response).to have_http_status(:success)
     end
 
-    it "should render json when calling index controller" do
-      expect(response.content_type).to eq("application/json; charset=utf-8")
+    it "should render index template when calling index" do
+      expect(response).to render_template("index")
     end
   end
 
@@ -20,6 +20,7 @@ RSpec.describe "Coffees", type: :request do
     it "should return status code 200 when given correct id" do
       get "/coffee/1"
       expect(response).to have_http_status(:success)
+      expect(response).to render_template("show")
     end
 
     it "should return 404 Not Found when given invalid id" do
