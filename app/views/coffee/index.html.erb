@@ -1,0 +1,14 @@
+<main id="coffee-index">
+    <h1>Welcome to Coder Coffee!</h1>
+
+    <div class="card-container">
+        <% coffees.each do |coffee| %>
+            <div class="card">
+                <h3><%= coffee[:name] %></h3>
+                <p><%= coffee[:description] %></p>
+                <p><%= coffee[:price] %></p>
+            </div>
+        <% end %>
+    </div>
+
+</main>

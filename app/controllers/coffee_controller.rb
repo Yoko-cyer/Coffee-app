@@ -2,7 +2,7 @@ class CoffeeController < ApplicationController
 
     skip_before_action :verify_authenticity_token
 
-    before_action :get_id, only: [:show, :update, :destroy]
+    before_action :set_coffee, only: [:show, :update, :destroy]
 
     # pretend model
     @@coffees = [
@@ -12,19 +12,11 @@ class CoffeeController < ApplicationController
     ]
 
     def index
-        render json: @@coffees
-        # json = JavaScript Obect Notation
+        render :index, locals: {coffees: @@coffees}
     end
 
     def show
         
-        @coffee = @@coffees.find{|coffee| coffee[:id] == @id}
-        
-        if @coffee
-            render json: @coffee, status: 200
-        else
-            render json: "Coffee not found", status: 404
-        end
     end
 
     def create
@@ -44,12 +36,9 @@ class CoffeeController < ApplicationController
 
     def update
 
-        index = @@coffees.index{ |coffee| coffee[:id] == @id }
-        
-
-        if index 
+        if @index 
             ## Pull existing coffee
-            @coffee = @@coffees[index]
+            @coffee = @@coffees[@index]
 
             ## update coffee
             updated_coffee = {
@@ -59,7 +48,7 @@ class CoffeeController < ApplicationController
                 price: params[:price]
             }
     
-            @@coffees[index] = updated_coffee
+            @@coffees[@index] = updated_coffee
             render json: updated_coffee, status: 200
         else
             ## 404
@@ -69,10 +58,9 @@ class CoffeeController < ApplicationController
     end
 
     def destroy
-        index = @@coffees.index{ |coffee| coffee[:id] == @id }
 
-        if index
-            @deleted_coffee = @@coffees.delete_at(index)
+        if @index
+            @deleted_coffee = @@coffees.delete_at(@index)
             render json: @@coffees, status: 200
         else
             render json: { error: "Could not find coffee"}, status: 404
@@ -81,8 +69,21 @@ class CoffeeController < ApplicationController
 
     private 
 
-    def get_id
+    def set_coffee
+        # Get id from parameters that are passed in
         @id = params[:id].to_i
+
+        # Find the position of the coffee in the array 
+        @index = @@coffees.index{ |coffee| coffee[:id] == @id }
+
+        # if index exists
+        if @index
+            # assign coffee
+            @coffee = @@coffees[@index]
+        else
+            # else print error to screen
+            render json: { error: "Could not find coffee" }, status: 404
+        end
     end
 
 end
