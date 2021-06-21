@@ -2,11 +2,12 @@
     <h1>Welcome to Coder Coffee!</h1>
 
     <div class="card-container">
-        <% coffees.each do |coffee| %>
+        <% @coffees.each do |coffee| %>
             <div class="card">
                 <h3><%= coffee[:name] %></h3>
                 <p><%= coffee[:description] %></p>
                 <p><%= coffee[:price] %></p>
+                <%= link_to "See coffee", coffee_path(coffee[:id]) %>
             </div>
         <% end %>
     </div>
