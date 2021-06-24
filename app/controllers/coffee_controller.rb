@@ -2,7 +2,7 @@ class CoffeeController < ApplicationController
 
     skip_before_action :verify_authenticity_token
 
-    before_action :set_coffee, only: [:show]
+    before_action :set_coffee, only: [:show, :destroy]
 
     # pretend model
     # @@coffees = [
@@ -59,12 +59,15 @@ class CoffeeController < ApplicationController
 
     def destroy
 
-        if @index
-            @deleted_coffee = @@coffees.delete_at(@index)
-            render json: @@coffees, status: 200
-        else
-            render json: { error: "Could not find coffee"}, status: 404
-        end
+        # if @index
+        #     @deleted_coffee = @@coffees.delete_at(@index)
+        #     render json: @@coffees, status: 200
+        # else
+        #     render json: { error: "Could not find coffee"}, status: 404
+        # end
+
+        @coffee.destroy
+        redirect_to coffee_path
     end
 
     private 
