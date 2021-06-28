@@ -1,0 +1,17 @@
+<h1>Create a Coffee</h1>
+<form action="<%= create_coffee_path %>" method="POST">
+
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+    <label>Name</label>
+    <input type="text" name="coffee[name]">
+
+    <label>Description</label>
+    <input type="text" name="coffee[description]">
+
+    <label>Price</label>
+    <input type="text" name="coffee[price]">
+
+    <input type="submit" name="Create Coffee">
+
+</form>

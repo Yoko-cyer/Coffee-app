@@ -3,5 +3,7 @@
         <h1> <%= @coffee[:name].capitalize %> </h1>
         <p> <%= @coffee[:description] %> </p>
         <p> Price: <%= @coffee[:price] %> </p>
+                
+        <%= link_to "Edit Coffee", update_coffee_path(@coffee[:id]) %>
     </div>
 </main>

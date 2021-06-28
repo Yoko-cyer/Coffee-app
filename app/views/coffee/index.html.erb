@@ -7,7 +7,7 @@
                 <h3><%= coffee[:name] %></h3>
                 <p><%= coffee[:description] %></p>
                 <p><%= coffee[:price] %></p>
-                <%= link_to "See coffee", coffee_path(coffee[:id]) %>
+                <%= link_to "See coffee", show_coffee_path(coffee[:id]) %>
             </div>
         <% end %>
     </div>

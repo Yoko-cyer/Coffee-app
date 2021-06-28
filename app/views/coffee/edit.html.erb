@@ -1,0 +1,18 @@
+<h1>Edit Coffee</h1>
+
+<form action="<%= update_coffee_path %>" method="POST">
+
+    <input type="hidden" name="_method" value="put">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+    <label>Name</label>
+    <input type="text" name="coffee[name]" value="<%= @coffee["name"] %>">
+
+    <label>Description</label>
+    <input type="text" name="coffee[description]" value="<%= @coffee.description %>">
+
+    <label>Price</label>
+    <input type="text" name="coffee[price]" value="<%= @coffee.price %>">
+
+    <input type="submit" name="Update Coffee">
+</form>
